@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מומחה רכבים | איתור רכב מושלם</title>
+<meta name="description" content="מומחה לאיתור רכבים. מוצא לך את הרכב המושלם — בדוק, אמין, במחיר הטוב ביותר.">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Rubik:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0A0C0B;--bg2:#111413;--bg3:#181B19;--bg4:#1F2321;--green:#25D366;--gd:#1DA851;--gold:#D4A853;--text:#F0F2F0;--muted:#8A9189;--border:rgba(255,255,255,0.06);--r:14px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Heebo',sans-serif;direction:rtl;overflow-x:hidden;line-height:1.6}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,0.35)}50%{box-shadow:0 0 0 14px rgba(37,211,102,0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes glow{0%,100%{opacity:.4}50%{opacity:.9}}
+@keyframes ticker{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:'Heebo',sans-serif}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2.5rem 1.5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(37,211,102,0.06) 0%,rgba(212,168,83,0.03) 40%,transparent 70%);top:-150px;left:50%;transform:translateX(-50%);pointer-events:none}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,var(--bg) 100%);pointer-events:none}
+.hero>*{position:relative;z-index:1}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.3;pointer-events:none}
+.badge-live{display:inline-flex;align-items:center;gap:6px;background:rgba(212,168,83,.12);border:1px solid rgba(212,168,83,.3);border-radius:50px;padding:6px 16px;font-size:12px;color:var(--gold);font-weight:500;margin-bottom:1.5rem;animation:fadeUp .5s ease both}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:glow 1.5s ease infinite;display:inline-block}
+.hero h1{font-family:'Rubik',sans-serif;font-size:clamp(2.2rem,7vw,4.2rem);font-weight:900;line-height:1.08;margin-bottom:1.25rem;animation:fadeUp .5s .1s ease both;letter-spacing:-.03em}
+.hero h1 span{background:linear-gradient(135deg,#25D366,#128C7E);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.05rem;color:var(--muted);max-width:520px;margin:0 auto 2rem;animation:fadeUp .5s .2s ease both;font-weight:300;line-height:1.7}
+.hero-sub strong{color:var(--text);font-weight:500}
+.wa-btn{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#fff;font-family:'Rubik',sans-serif;font-size:1.1rem;font-weight:700;padding:16px 36px;border-radius:50px;border:none;text-decoration:none;animation:fadeUp .5s .3s ease both,pulse 2.5s 1.5s ease infinite;transition:all .2s}
+.wa-btn:hover{background:var(--gd);transform:scale(1.05)}
+.wa-icon{width:22px;height:22px;flex-shrink:0}
+.trust-bar{display:flex;gap:2rem;margin-top:2.5rem;animation:fadeUp .5s .4s ease both;justify-content:center;flex-wrap:wrap}
+.tbi{text-align:center;min-width:80px}.tbi-n{font-family:'Rubik',sans-serif;font-size:1.8rem;font-weight:800;color:var(--green);line-height:1}.tbi-l{font-size:11px;color:var(--muted);margin-top:3px;letter-spacing:.04em}
+.tbi-div{width:1px;height:38px;background:var(--border);align-self:center}
+.brands{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;opacity:.2;margin-top:2rem;font-family:'Rubik',sans-serif;font-size:13px;font-weight:600;letter-spacing:.06em}
+
+/* SECTIONS */
+section{padding:4.5rem 1.5rem}.si{max-width:960px;margin:0 auto}
+.se{font-size:11px;font-weight:600;letter-spacing:.18em;color:var(--green);text-transform:uppercase;margin-bottom:.5rem}
+.st{font-family:'Rubik',sans-serif;font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:800;margin-bottom:.5rem;letter-spacing:-.015em}
+.ss{color:var(--muted);font-size:.95rem;margin-bottom:2.5rem;font-weight:300}
+
+/* TICKER */
+.ticker{overflow:hidden;background:var(--bg3);padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.ticker-track{display:flex;gap:3rem;animation:ticker 30s linear infinite;white-space:nowrap}
+.ticker-item{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;flex-shrink:0}
+.ticker-item b{color:var(--green);font-weight:700}
+
+/* PROCESS */
+.proc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.proc-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px 20px;position:relative;overflow:hidden;transition:all .25s}
+.proc-card:hover{border-color:rgba(37,211,102,.25);transform:translateY(-3px)}
+.proc-icon{font-size:1.8rem;margin-bottom:10px}
+.proc-t{font-family:'Rubik',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:4px}
+.proc-d{font-size:.83rem;color:var(--muted);font-weight:300;line-height:1.55}
+
+/* CARS */
+.cars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.cc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:all .25s;cursor:pointer}
+.cc:hover{border-color:rgba(37,211,102,.3);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.cc-img{width:100%;height:185px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden}
+.cc-img img{width:100%;height:100%;object-fit:cover}
+.cc-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,var(--bg2) 0%,transparent 50%)}
+.cc-badge{position:absolute;top:10px;right:10px;padding:4px 10px;border-radius:50px;font-size:11px;font-weight:600;z-index:2}
+.cc-hot{background:rgba(255,68,68,.15);color:#FF6B6B;border:1px solid rgba(255,68,68,.25)}
+.cc-new{background:rgba(37,211,102,.12);color:var(--green);border:1px solid rgba(37,211,102,.25)}
+.cc-gold{background:rgba(212,168,83,.12);color:var(--gold);border:1px solid rgba(212,168,83,.3)}
+.cc-body{padding:16px 18px}
+.cc-name{font-family:'Rubik',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:8px}
+.cc-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tag{font-size:11px;padding:3px 10px;border-radius:50px;background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--border)}
+.cc-cta{color:var(--green);font-size:13px;font-weight:600;font-family:'Rubik',sans-serif}
+
+/* QUIZ */
+.quiz-wrap{max-width:520px;margin:0 auto;background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:28px;position:relative;overflow:hidden}
+.quiz-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),var(--gold))}
+.quiz-step{font-size:11px;color:var(--muted);text-align:center;margin-bottom:6px}
+.quiz-q{font-family:'Rubik',sans-serif;font-size:16px;font-weight:700;margin-bottom:16px;text-align:center}
+.quiz-opts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.quiz-opt{padding:10px 20px;border-radius:50px;border:1px solid var(--border);background:var(--bg4);font-size:13px;color:var(--text);transition:all .15s}
+.quiz-opt:hover{border-color:var(--green);background:rgba(37,211,102,.08)}
+.quiz-result{text-align:center;display:none}
+.quiz-result.show{display:block;animation:fadeUp .4s ease}
+.quiz-match{font-size:11px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.quiz-car{font-family:'Rubik',sans-serif;font-size:22px;font-weight:900;color:var(--green);margin-bottom:6px}
+.quiz-reason{font-size:13px;color:var(--muted);margin-bottom:14px}
+.quiz-btn{padding:12px 28px;border-radius:50px;background:var(--green);color:#fff;border:none;font-family:'Rubik',sans-serif;font-size:14px;font-weight:700;transition:all .2s}
+.quiz-btn:hover{background:var(--gd);transform:scale(1.04)}
+
+/* BENEFITS */
+.ben-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.ben-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;display:flex;gap:14px;align-items:flex-start;transition:all .25s}
+.ben-card:hover{border-color:rgba(37,211,102,.2);transform:translateY(-2px)}
+.ben-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.ben-t{font-family:'Rubik',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:3px}
+.ben-d{font-size:.83rem;color:var(--muted);font-weight:300;line-height:1.55}
+
+/* AI CHAT */
+.chat-box{max-width:440px;margin:0 auto;background:var(--bg3);border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.chat-hdr{background:var(--bg4);padding:14px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+.chat-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#25D366,#128C7E);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:700}
+.chat-name{font-family:'Rubik',sans-serif;font-size:14px;font-weight:700}
+.chat-status{font-size:11px;color:var(--green)}
+.chat-msgs{padding:16px;min-height:220px;max-height:300px;overflow-y:auto}
+.chat-msg{display:flex;gap:8px;margin-bottom:10px}
+.chat-msg.me{flex-direction:row-reverse}
+.chat-bubble{max-width:80%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.6;background:var(--bg4);border:1px solid var(--border)}
+.chat-bubble.me{background:rgba(37,211,102,.12);border-color:rgba(37,211,102,.2)}
+.chat-suggestions{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 12px}
+.chat-sug{padding:5px 12px;border-radius:50px;border:1px solid var(--border);background:var(--bg4);font-size:12px;color:var(--text);transition:all .15s}
+.chat-sug:hover{border-color:var(--green);color:var(--green)}
+.chat-input-row{display:flex;gap:8px;padding:12px 18px 14px;border-top:1px solid var(--border);background:var(--bg4)}
+.chat-input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:9px 16px;font-size:13px;color:var(--text);font-family:'Heebo',sans-serif;direction:rtl;outline:none}
+.chat-input:focus{border-color:var(--green)}
+.chat-send{width:38px;height:38px;border-radius:50%;background:var(--green);border:none;color:#fff;font-size:15px;transition:all .2s}
+.chat-send:hover{background:var(--gd)}
+
+/* REVIEWS */
+.rev-row{display:flex;gap:14px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.rev-row::-webkit-scrollbar{height:3px}.rev-row::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.rv{min-width:265px;max-width:290px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:18px;scroll-snap-align:start;flex-shrink:0}
+.rv-stars{color:var(--gold);font-size:13px;letter-spacing:2px;margin-bottom:8px}
+.rv-text{font-size:.88rem;line-height:1.65;margin-bottom:10px;font-weight:300}
+.rv-name{font-size:12px;color:var(--muted);font-weight:500}
+
+/* GUARANTEE */
+.guarantee{background:linear-gradient(135deg,rgba(37,211,102,.06),rgba(212,168,83,.04));border:1px solid rgba(37,211,102,.15);border-radius:20px;padding:32px;text-align:center;max-width:600px;margin:0 auto}
+.guarantee-icon{font-size:2.5rem;margin-bottom:12px}
+.guarantee-t{font-family:'Rubik',sans-serif;font-size:1.3rem;font-weight:800;margin-bottom:8px}
+.guarantee-d{font-size:.9rem;color:var(--muted);line-height:1.7;font-weight:300}
+
+/* FAQ */
+.faq{max-width:620px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--border);padding:16px 0;cursor:pointer}
+.faq-q{font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.faq-a{font-size:13px;color:var(--muted);line-height:1.7;max-height:0;overflow:hidden;transition:max-height .3s,padding .3s;font-weight:300}
+.faq-item.open .faq-a{max-height:200px;padding-top:10px}
+.faq-arrow{transition:transform .3s;color:var(--muted)}.faq-item.open .faq-arrow{transform:rotate(180deg)}
+
+/* CTA */
+.cta{text-align:center;padding:5rem 1.5rem;position:relative;overflow:hidden}
+.cta::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(37,211,102,.07) 0%,transparent 70%);bottom:-250px;left:50%;transform:translateX(-50%);pointer-events:none}
+.cta>*{position:relative;z-index:1}
+.wa-btn-lg{display:inline-flex;align-items:center;gap:12px;background:var(--green);color:#fff;font-family:'Rubik',sans-serif;font-size:1.15rem;font-weight:800;padding:18px 44px;border-radius:50px;border:none;text-decoration:none;transition:all .2s;animation:float 3s ease-in-out infinite}
+.wa-btn-lg:hover{background:var(--gd);transform:scale(1.05);animation:none}
+
+/* FLOAT WA */
+.float-wa{position:fixed;bottom:24px;left:24px;z-index:99;background:var(--green);border:none;border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(37,211,102,.4);animation:pulse 2.5s ease infinite;transition:transform .15s;text-decoration:none}
+.float-wa:hover{transform:scale(1.1)}
+.float-label{position:fixed;bottom:88px;left:14px;z-index:99;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:7px 12px;font-size:12px;color:var(--text);font-weight:500;white-space:nowrap;animation:fadeUp .4s 3s ease both;opacity:0;pointer-events:none}
+
+/* ADMIN */
+.admin-btn{position:fixed;bottom:24px;right:24px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--muted);z-index:90;transition:all .2s}
+.admin-btn:hover{background:rgba(255,255,255,.08)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:28px;width:90%;max-width:340px;text-align:center}
+.modal h3{font-family:'Rubik',sans-serif;font-weight:700;font-size:16px;margin-bottom:6px}
+.modal p{font-size:13px;color:var(--muted);margin-bottom:16px}
+.modal input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;font-size:22px;color:var(--text);text-align:center;letter-spacing:8px;outline:none;margin-bottom:12px;font-family:'Rubik',sans-serif}
+.modal input:focus{border-color:var(--green)}
+.modal-btn{width:100%;padding:12px;border-radius:10px;background:var(--green);color:#fff;border:none;font-size:15px;font-weight:700;font-family:'Rubik',sans-serif;transition:all .2s}
+.modal-btn:hover{background:var(--gd)}
+.modal-note{font-size:11px;color:var(--muted);margin-top:10px}
+
+/* ADMIN PANEL */
+.admin-panel{display:none;position:fixed;inset:0;background:var(--bg);z-index:300;overflow-y:auto;padding:20px}
+.admin-panel.open{display:block}
+.admin-inner{max-width:680px;margin:0 auto}
+.admin-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.admin-hdr h2{font-family:'Rubik',sans-serif;font-weight:800;font-size:22px}
+.car-item{display:flex;gap:12px;align-items:center;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:10px}
+.car-thumb{width:70px;height:52px;border-radius:8px;overflow:hidden;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.car-thumb img{width:100%;height:100%;object-fit:cover}
+.car-info{flex:1}
+.car-info b{font-size:14px;display:block;margin-bottom:2px}
+.car-info span{font-size:12px;color:var(--muted)}
+.btn-edit{padding:6px 12px;border-radius:8px;background:rgba(37,211,102,.1);color:var(--green);border:1px solid rgba(37,211,102,.2);font-size:12px}
+.btn-del{padding:6px 12px;border-radius:8px;background:rgba(255,68,68,.1);color:#FF6B6B;border:1px solid rgba(255,68,68,.2);font-size:12px}
+.btn-back{padding:10px 20px;border-radius:10px;background:rgba(255,255,255,.08);color:var(--muted);border:none;font-size:14px}
+.add-form{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:22px;margin-top:16px}
+.add-form h3{font-family:'Rubik',sans-serif;font-weight:700;font-size:16px;margin-bottom:16px}
+.form-row{margin-bottom:14px}
+.form-row label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;font-weight:500}
+.form-row input,.form-row select{width:100%;background:var(--bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--text);font-family:'Heebo',sans-serif;direction:rtl;outline:none}
+.form-row input:focus,.form-row select:focus{border-color:var(--green)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.img-upload{width:120px;height:82px;border-radius:10px;border:2px dashed rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--bg3);cursor:pointer;font-size:12px;color:var(--muted);text-align:center;line-height:1.4}
+.img-upload img{width:100%;height:100%;object-fit:cover}
+.btn-save{width:100%;padding:12px;border-radius:10px;background:var(--green);color:#fff;border:none;font-size:15px;font-weight:700;font-family:'Rubik',sans-serif;margin-top:6px}
+.btn-save:hover{background:var(--gd)}
+.btn-cancel{width:100%;padding:10px;border-radius:10px;background:rgba(255,255,255,.05);color:var(--muted);border:none;font-size:14px;margin-top:8px}
+
+footer{padding:2rem 1.5rem;text-align:center;border-top:1px solid var(--border);color:var(--muted);font-size:12px;font-weight:300}
+
+.typing-dots{display:inline-flex;gap:4px}
+.typing-dots span{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:glow .8s ease infinite}
+.typing-dots span:nth-child(2){animation-delay:.15s}.typing-dots span:nth-child(3){animation-delay:.3s}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="grid-bg"></div>
+  <div class="badge-live"><span class="badge-dot"></span> מומחה לאיתור רכבים</div>
+  <h1>אני מוצא לך את<br><span>הרכב המושלם.</span></h1>
+  <p class="hero-sub">אתה אומר מה אתה מחפש — אני מוצא, בודק, ומביא לך את <strong>הרכב הכי מתאים</strong> במחיר הכי טוב. שירות אישי מקצה לקצה.</p>
+  <a class="wa-btn" id="wa-hero" href="#">
+    <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.28 7.045L.787 23.423l4.483-1.43A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.058 0-3.98-.556-5.626-1.525l-.403-.239-4.18 1.334 1.19-4.336-.261-.42A9.962 9.962 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    ספר לי מה אתה מחפש
+  </a>
+  <div class="trust-bar">
+    <div class="tbi"><div class="tbi-n">200+</div><div class="tbi-l">עסקאות מוצלחות</div></div>
+    <div class="tbi-div"></div>
+    <div class="tbi"><div class="tbi-n">4.9★</div><div class="tbi-l">שביעות רצון</div></div>
+    <div class="tbi-div"></div>
+    <div class="tbi"><div class="tbi-n">&lt;30 דק</div><div class="tbi-l">זמן מענה</div></div>
+    <div class="tbi-div"></div>
+    <div class="tbi"><div class="tbi-n">10+ שנים</div><div class="tbi-l">ניסיון</div></div>
+  </div>
+  <div class="brands">
+    <span>TOYOTA</span><span>MAZDA</span><span>SKODA</span><span>HYUNDAI</span><span>KIA</span><span>HONDA</span><span>VW</span><span>NISSAN</span>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ticker-track">
+  <div class="ticker-item">✅ <b>סקודה אוקטביה 2019</b> — נמצא ונמכר תוך 5 ימים</div>
+  <div class="ticker-item">✅ <b>טויוטה RAV4 2020</b> — לקוח מרוצה מחיפה</div>
+  <div class="ticker-item">✅ <b>הונדה סיוויק 2018</b> — עסקה סגורה בשבוע</div>
+  <div class="ticker-item">✅ <b>קיה ספורטאז׳ 2022</b> — לקוח חוזר פעם 3!</div>
+  <div class="ticker-item">✅ <b>מאזדה CX-5 2021</b> — נמצא בדיוק לפי בקשה</div>
+  <div class="ticker-item">✅ <b>ניסאן קשקאי 2020</b> — מבחן נסיעה + סגירה ביום אחד</div>
+</div></div>
+
+<!-- PROCESS -->
+<section style="background:var(--bg2)">
+<div class="si">
+  <div class="se">איך זה עובד</div>
+  <h2 class="st">מהודעה אחת — לרכב מושלם</h2>
+  <p class="ss">תהליך פשוט שחוסך לך זמן, כסף, וכאב ראש</p>
+  <div class="proc-grid">
+    <div class="proc-card"><div class="proc-icon">💬</div><div class="proc-t">שלח הודעה</div><div class="proc-d">ספר לי מה מחפש — סוג, תקציב, העדפות. אני שואל כמה שאלות ומבין בדיוק.</div></div>
+    <div class="proc-card"><div class="proc-icon">🔎</div><div class="proc-t">אני מחפש ובודק</div><div class="proc-d">סורק מאות רכבים, בודק היסטוריה ומצב טכני. אתה לא מבזבז זמן.</div></div>
+    <div class="proc-card"><div class="proc-icon">🚗</div><div class="proc-t">נסיעת מבחן</div><div class="proc-d">מתאם לך נסיעה ברכבים הכי מתאימים. אני מלווה ומסביר.</div></div>
+    <div class="proc-card"><div class="proc-icon">🤝</div><div class="proc-t">סגירת עסקה</div><div class="proc-d">מו"מ, ניירת, העברת בעלות — אני מטפל בכל הבירוקרטיה.</div></div>
+  </div>
+</div></section>
+
+<!-- CARS -->
+<section>
+<div class="si">
+  <div class="se">רכבים זמינים עכשיו</div>
+  <h2 class="st">מה יש לי היום</h2>
+  <p class="ss">לחץ על רכב ← שיחה ישירה בוואטסאפ</p>
+  <div class="cars-grid" id="cars-grid"></div>
+  <div style="text-align:center;margin-top:2rem">
+    <a class="wa-btn" id="wa-notfound" href="#" style="font-size:.95rem;padding:12px 28px;animation:none">לא מצאת? אני אמצא לך ←</a>
+  </div>
+</div></section>
+
+<!-- QUIZ -->
+<section style="background:var(--bg2)">
+<div class="si" style="text-align:center">
+  <div class="se">עוזר חכם</div>
+  <h2 class="st">איזה רכב מתאים לך?</h2>
+  <p class="ss">3 שאלות קצרות ← המלצה אישית</p>
+  <div class="quiz-wrap">
+    <div id="qz1">
+      <div class="quiz-step">שאלה 1 מתוך 3</div>
+      <div class="quiz-q">מה הסגנון שלך?</div>
+      <div class="quiz-opts">
+        <button class="quiz-opt" onclick="qAns(1,'economy')">קומפקטי וחסכוני</button>
+        <button class="quiz-opt" onclick="qAns(1,'family')">משפחתי ומרווח</button>
+        <button class="quiz-opt" onclick="qAns(1,'suv')">SUV / גבוה</button>
+        <button class="quiz-opt" onclick="qAns(1,'luxury')">יוקרתי ומפנק</button>
+      </div>
+    </div>
+    <div id="qz2" style="display:none">
+      <div class="quiz-step">שאלה 2 מתוך 3</div>
+      <div class="quiz-q">כמה ק"מ ביום?</div>
+      <div class="quiz-opts">
+        <button class="quiz-opt" onclick="qAns(2,'low')">עד 30 ק"מ</button>
+        <button class="quiz-opt" onclick="qAns(2,'med')">30–80 ק"מ</button>
+        <button class="quiz-opt" onclick="qAns(2,'high')">80+ ק"מ</button>
+      </div>
+    </div>
+    <div id="qz3" style="display:none">
+      <div class="quiz-step">שאלה 3 מתוך 3</div>
+      <div class="quiz-q">מה הכי חשוב?</div>
+      <div class="quiz-opts">
+        <button class="quiz-opt" onclick="qAns(3,'price')">מחיר נמוך</button>
+        <button class="quiz-opt" onclick="qAns(3,'reliable')">אמינות</button>
+        <button class="quiz-opt" onclick="qAns(3,'tech')">טכנולוגיה</button>
+        <button class="quiz-opt" onclick="qAns(3,'safety')">בטיחות</button>
+      </div>
+    </div>
+    <div id="qzresult" class="quiz-result">
+      <div class="quiz-match">התאמה מושלמת</div>
+      <div class="quiz-car" id="qzcar"></div>
+      <div class="quiz-reason" id="qzreason"></div>
+      <button class="quiz-btn" id="qzbtn">דבר איתי על הרכב הזה</button><br>
+      <button onclick="qReset()" style="margin-top:10px;background:none;border:none;color:var(--muted);font-size:12px;font-family:'Heebo',sans-serif">נסה שוב ↺</button>
+    </div>
+  </div>
+</div></section>
+
+<!-- BENEFITS -->
+<section>
+<div class="si">
+  <div class="se">למה לקוחות בוחרים בי</div>
+  <h2 class="st">שירות שלא תמצא בשום מקום אחר</h2>
+  <div class="ben-grid">
+    <div class="ben-card"><div class="ben-icon" style="background:rgba(37,211,102,.1)">🔍</div><div><div class="ben-t">איתור מותאם אישית</div><div class="ben-d">לא מלאי קבוע — אני מחפש בדיוק לפי מה שאתה צריך. כל לקוח מקבל חיפוש ייעודי.</div></div></div>
+    <div class="ben-card"><div class="ben-icon" style="background:rgba(212,168,83,.1)">🛡️</div><div><div class="ben-t">בדיקה מקצועית מלאה</div><div class="ben-d">כל רכב עובר בדיקת מוסך, היסטוריה, דוח תאונות ובדיקת שלדה לפני שאני מציע אותו.</div></div></div>
+    <div class="ben-card"><div class="ben-icon" style="background:rgba(59,130,246,.1)">⚡</div><div><div class="ben-t">מענה מהיר ואישי</div><div class="ben-d">אני עונה לך ישירות בוואטסאפ תוך 30 דקות. לא מוקד, לא תורים — שירות אישי.</div></div></div>
+    <div class="ben-card"><div class="ben-icon" style="background:rgba(168,85,247,.1)">📋</div><div><div class="ben-t">ליווי עד סוף העסקה</div><div class="ben-d">מו"מ, ניירת, העברת בעלות — אני מטפל בכל הבירוקרטיה כדי שאתה תנוח.</div></div></div>
+  </div>
+</div></section>
+
+<!-- AI CHAT -->
+<section style="background:var(--bg2)">
+<div class="si" style="text-align:center">
+  <div class="se">צ'אט חכם</div>
+  <h2 class="st">שאל אותי כל שאלה — 24/7</h2>
+  <p class="ss">שאל על רכבים, תקציבים, השוואות</p>
+  <div class="chat-box">
+    <div class="chat-hdr">
+      <div class="chat-av">AI</div>
+      <div><div class="chat-name">העוזר שלי</div><div class="chat-status">● מקוון עכשיו</div></div>
+    </div>
+    <div class="chat-msgs" id="chatMsgs">
+      <div class="chat-msg"><div class="chat-bubble">היי! מחפש רכב? ספר לי מה חשוב לך ואני אעזור למצוא בדיוק מה שמתאים 🙂</div></div>
+    </div>
+    <div class="chat-suggestions">
+      <button class="chat-sug" onclick="quickMsg('מה יש עכשיו?')">מה יש עכשיו?</button>
+      <button class="chat-sug" onclick="quickMsg('SUV עד 100K?')">SUV עד 100K?</button>
+      <button class="chat-sug" onclick="quickMsg('איך זה עובד?')">איך זה עובד?</button>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" id="chatInput" placeholder="שאל אותי משהו..." onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="chat-send" onclick="sendChat()">➤</button>
+    </div>
+  </div>
+</div></section>
+
+<!-- GUARANTEE -->
+<section>
+<div class="si">
+  <div class="guarantee">
+    <div class="guarantee-icon">🛡️</div>
+    <div class="guarantee-t">התחייבות שלי אליך</div>
+    <div class="guarantee-d">כל רכב שאני מציע עובר בדיקה מקצועית מלאה. אם הרכב לא מתאים — אני ממשיך לחפש עד שנמצא את המושלם. בלי לחץ, בלי פשרות, בלי הפתעות.</div>
+  </div>
+</div></section>
+
+<!-- REVIEWS -->
+<section style="background:var(--bg2)">
+<div class="si">
+  <div class="se">לקוחות ממליצים</div>
+  <h2 class="st">200+ עסקאות מוצלחות</h2>
+  <p class="ss">גלול לצדדים לעוד ביקורות</p>
+  <div class="rev-row">
+    <div class="rv"><div class="rv-stars">★★★★★</div><div class="rv-text">אמרתי לו קורולה — תוך 4 ימים הייתי בנסיעה ברכב מושלם. סגרנו באותו יום.</div><div class="rv-name">דניאל כ. · תל אביב</div></div>
+    <div class="rv"><div class="rv-stars">★★★★★</div><div class="rv-text">ניסיתי לחפש לבד שבועות. הוא מצא CX-5 מדהים ב-3 ימים. ליווה אותי עד העברת בעלות.</div><div class="rv-name">שרה א. · חיפה</div></div>
+    <div class="rv"><div class="rv-stars">★★★★★</div><div class="rv-text">ענה בוואטסאפ תוך 10 דקות. למחרת כבר הייתי בנסיעת מבחן. שירות ברמה אחרת.</div><div class="rv-name">מיכאל ל. · רמת גן</div></div>
+    <div class="rv"><div class="rv-stars">★★★★★</div><div class="rv-text">פעם שלישית שאני קונה דרכו. יודע בדיוק מה אני צריך, מוצא תמיד את העסקה הטובה.</div><div class="rv-name">יוסי כ. · נתניה</div></div>
+    <div class="rv"><div class="rv-stars">★★★★★</div><div class="rv-text">חסך לי שבועות של חיפושים. הרכב עבר בדיקה מלאה. ממליצה בחום!</div><div class="rv-name">מרים ח. · הרצליה</div></div>
+  </div>
+</div></section>
+
+<!-- FAQ -->
+<section>
+<div class="si">
+  <div class="se">שאלות נפוצות</div>
+  <h2 class="st">תשובות לכל מה שרציתם לדעת</h2>
+  <div class="faq">
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span>איך בדיוק התהליך עובד?</span><span class="faq-arrow">▼</span></div><div class="faq-a">שולח הודעה → מספר מה מחפש → אני מאתר רכבים → מתאם נסיעות מבחן → מלווה עד סגירה.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span>אפשר לבדוק את הרכב במוסך שלי?</span><span class="faq-arrow">▼</span></div><div class="faq-a">בהחלט ואני אפילו ממליץ. כל רכב שאני מציע כבר עבר בדיקה מטעמי — אבל אתה מוזמן לבדוק שוב.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span>כמה זמן לוקח למצוא רכב?</span><span class="faq-arrow">▼</span></div><div class="faq-a">בממוצע 3-7 ימים. יש לקוחות שמצאתי להם רכב תוך 24 שעות.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span>אתה מלווה גם בניירת?</span><span class="faq-arrow">▼</span></div><div class="faq-a">כן — העברת בעלות, ביטוח, חוזה מכירה. אני מטפל בכל הבירוקרטיה.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span>מה אם הרכב לא מתאים לי?</span><span class="faq-arrow">▼</span></div><div class="faq-a">ממשיכים לחפש. אני לא לוחץ — עד שלא תמצא בדיוק מה שאתה רוצה, לא סוגרים.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span>אפשר למכור דרכך גם?</span><span class="faq-arrow">▼</span></div><div class="faq-a">בהחלט! אם יש לך רכב למכירה — שלח הודעה ואני אטפל בכל התהליך עבורך.</div></div>
+  </div>
+</div></section>
+
+<!-- CTA -->
+<div class="cta">
+  <div class="se" style="margin-bottom:.75rem">מוכן?</div>
+  <h2 style="font-family:'Rubik',sans-serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:900;margin-bottom:.75rem;letter-spacing:-.02em">הודעה אחת.<br>רכב מושלם.</h2>
+  <p style="color:var(--muted);margin-bottom:2rem;font-weight:300">ראשון–שישי · 08:00–21:00 · כל הארץ</p>
+  <a class="wa-btn-lg" id="wa-cta" href="#">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.28 7.045L.787 23.423l4.483-1.43A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.058 0-3.98-.556-5.626-1.525l-.403-.239-4.18 1.334 1.19-4.336-.261-.42A9.962 9.962 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    שלח הודעה עכשיו
+  </a>
+  <div style="font-size:12px;color:var(--muted);margin-top:1.25rem">ממוצע מענה: 18 דקות · שירות אישי מקצה לקצה</div>
+</div>
+
+<footer><p style="margin-bottom:4px">שירות איתור רכבים מקצועי · כל הארץ</p><p>© 2026 · מומחה רכבים</p></footer>
+
+<!-- FLOAT WA -->
+<a class="float-wa" id="wa-float" href="#" aria-label="פתח וואטסאפ">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.28 7.045L.787 23.423l4.483-1.43A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.058 0-3.98-.556-5.626-1.525l-.403-.239-4.18 1.334 1.19-4.336-.261-.42A9.962 9.962 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+<div class="float-label">יש לך שאלה? דבר איתי</div>
+
+<!-- ADMIN BTN -->
+<button class="admin-btn" onclick="document.getElementById('pinModal').classList.add('open')" title="ניהול">⚙️</button>
+
+<!-- PIN MODAL -->
+<div class="modal-overlay" id="pinModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal">
+    <div style="font-size:28px;margin-bottom:10px">🔒</div>
+    <h3>כניסת מנהל</h3>
+    <p>הזן קוד גישה</p>
+    <input type="password" id="pinInput" placeholder="• • • •" maxlength="10" onkeydown="if(event.key==='Enter')checkPin()">
+    <button class="modal-btn" onclick="checkPin()">כנס</button>
+    <div class="modal-note">קוד ברירת מחדל: 1234</div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-inner">
+    <div class="admin-hdr">
+      <h2>🔧 ניהול רכבים</h2>
+      <button class="btn-back" onclick="closeAdmin()">חזור לאתר ←</button>
+    </div>
+    <div id="carList"></div>
+    <div class="add-form" id="addForm">
+      <h3 id="formTitle">➕ הוספת רכב חדש</h3>
+      <input type="hidden" id="editId">
+      <div class="form-row">
+        <label>תמונת הרכב</label>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="img-upload" id="imgPreview" onclick="document.getElementById('imgFile').click()">לחץ להעלאה<br>תמונה</div>
+          <input type="file" id="imgFile" accept="image/*" style="display:none" onchange="handleImg(event)">
+          <div style="font-size:12px;color:var(--muted);line-height:1.6">JPG / PNG / WebP<br>מהטלפון או מחשב</div>
+        </div>
+      </div>
+      <input type="hidden" id="imgData">
+      <div class="form-row"><label>שם הרכב</label><input id="carName" placeholder="למשל: טויוטה קורולה 2020"></div>
+      <div class="form-grid">
+        <div class="form-row"><label>ק"מ</label><input id="carKm" placeholder="61,000"></div>
+        <div class="form-row"><label>תגית</label>
+          <select id="carBadgeType">
+            <option value="new">חדש!</option>
+            <option value="hot">ביקוש גבוה</option>
+            <option value="gold">פרימיום</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row"><label>מאפיינים (מופרדים בפסיק)</label><input id="carTags" placeholder="גג פנורמי, שירות מלא, יד ראשונה"></div>
+      <div class="form-row"><label>אימוג'י (אם אין תמונה)</label><input id="carEmoji" value="🚗" style="width:80px;font-size:22px;text-align:center"></div>
+      <button class="btn-save" onclick="saveCar()">➕ הוסף רכב</button>
+      <button class="btn-cancel" id="cancelEdit" onclick="cancelEdit()" style="display:none">ביטול</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const WA='972544239896';
+const BADGE_CLS={hot:'cc-hot',new:'cc-new',gold:'cc-gold'};
+const BADGE_LBL={hot:'ביקוש גבוה',new:'חדש!',gold:'פרימיום'};
+const PIN='1234';
+
+function waLink(msg){return'https://wa.me/'+WA+'?text='+encodeURIComponent(msg||'היי! אני מחפש רכב')}
+
+document.getElementById('wa-hero').href=waLink('היי! אני מחפש רכב ואשמח לשמוע פרטים');
+document.getElementById('wa-cta').href=waLink('היי! אני מחפש רכב');
+document.getElementById('wa-float').href=waLink('היי!');
+document.getElementById('wa-notfound').href=waLink('היי! אני מחפש רכב שלא ברשימה — אפשר לאתר לי?');
+
+// CARS DATA
+var cars=JSON.parse(localStorage.getItem('cars-v2')||'[]');
+if(!cars.length)cars=[
+  {id:'1',name:'סקודה אוקטביה 2019',km:'87,000',tags:['גג פנורמי','שירות מלא'],badgeType:'hot',emoji:'🚗',img:''},
+  {id:'2',name:'טויוטה קורולה 2020',km:'61,000',tags:['יד ראשונה','ללא תאונות'],badgeType:'new',emoji:'🚙',img:''},
+  {id:'3',name:'מאזדה CX-5 2021',km:'45,000',tags:['4WD','פנורמי'],badgeType:'gold',emoji:'🚘',img:''},
+];
+
+function saveCarsLocal(){localStorage.setItem('cars-v2',JSON.stringify(cars))}
+
+function renderCars(){
+  var g=document.getElementById('cars-grid');
+  g.innerHTML='';
+  cars.forEach(function(car){
+    var tags=car.tags.map(function(t){return'<span class="tag">'+t+'</span>'}).join('');
+    var imgEl=car.img?'<img src="'+car.img+'" alt="'+car.name+'">':(car.emoji||'🚗');
+    var badge=car.badgeType?'<span class="cc-badge '+BADGE_CLS[car.badgeType]+'">'+BADGE_LBL[car.badgeType]+'</span>':'';
+    g.innerHTML+='<div class="cc" onclick="openWA(\''+car.name+'\')"><div class="cc-img" style="background:linear-gradient(135deg,#1a2332,#0d1117)">'+imgEl+badge+'</div><div class="cc-body"><div class="cc-name">'+car.name+'</div><div class="cc-meta"><span class="tag">'+car.km+' ק"מ</span>'+tags+'</div><div class="cc-cta">לפרטים ותיאום נסיעה ←</div></div></div>';
+  });
+}
+renderCars();
+
+function openWA(car){var m=car?'היי! אני מעוניין ב'+car+'. אפשר פרטים?':'היי! אני מחפש רכב';window.open(waLink(m),'_blank')}
+
+// QUIZ
+var qStyle='';
+function qAns(step,val){
+  if(step===1){qStyle=val;document.getElementById('qz1').style.display='none';document.getElementById('qz2').style.display='block'}
+  if(step===2){document.getElementById('qz2').style.display='none';document.getElementById('qz3').style.display='block'}
+  if(step===3){document.getElementById('qz3').style.display='none';showQResult()}
+}
+function showQResult(){
+  var recs={economy:'טויוטה קורולה / יאריס',family:'סקודה אוקטביה / קיה ספורטאז׳',suv:'מאזדה CX-5 / טויוטה RAV4',luxury:'פולקסווגן פסאט / סקודה סופרב'};
+  var why={economy:'חסכוני, אמין, עלויות אחזקה נמוכות',family:'מרווח, בטיחותי, נוח למשפחה',suv:'ישיבה גבוהה, הנעה כפולה, נוכחות על הכביש',luxury:'ציוד עשיר, נוחות מקסימלית'};
+  var car=recs[qStyle]||recs.economy;
+  document.getElementById('qzcar').textContent=car;
+  document.getElementById('qzreason').textContent=why[qStyle]||'';
+  document.getElementById('qzbtn').onclick=function(){openWA('המלצת הקוויז: '+car)};
+  var r=document.getElementById('qzresult');r.classList.add('show');r.style.display='block';
+}
+function qReset(){
+  qStyle='';
+  ['qz1','qz2','qz3'].forEach(function(id,i){document.getElementById(id).style.display=i===0?'block':'none'});
+  var r=document.getElementById('qzresult');r.classList.remove('show');r.style.display='none';
+}
+
+// CHAT
+var chatR={'מחיר':'ספר לי מה התקציב שלך ואני אמצא את הרכב הכי מתאים!','תקציב':'מה התקציב שלך? אני אמצא את הכי טוב בטווח שלך.','זמין':'יש כמה רכבים מצוינים עכשיו. מה הסגנון שאתה מחפש?','suv':'יש כמה SUV מצוינים! מה התקציב שלך?','נסיעה':'מעולה! שלח הודעה בוואטסאפ ונתאם נסיעת מבחן 🙂','תהליך':'פשוט: שולח הודעה → מאתר רכבים → מתאם נסיעה → מלווה עד סגירה.','עכשיו':'יש כרגע סקודה אוקטביה, טויוטה קורולה ומאזדה CX-5. מה מעניין?','default':'שאלה מצוינת! שלח הודעה בוואטסאפ ואחזור אליך תוך דקות 🙂'};
+function quickMsg(m){document.getElementById('chatInput').value=m;sendChat()}
+function sendChat(){
+  var i=document.getElementById('chatInput'),m=i.value.trim();if(!m)return;i.value='';
+  var ms=document.getElementById('chatMsgs');
+  ms.innerHTML+='<div class="chat-msg me" style="animation:slideIn .3s"><div class="chat-bubble me">'+m+'</div></div>';
+  ms.innerHTML+='<div class="chat-msg" id="typ"><div class="chat-bubble"><span class="typing-dots"><span></span><span></span><span></span></span></div></div>';
+  ms.scrollTop=ms.scrollHeight;
+  setTimeout(function(){
+    var t=document.getElementById('typ');if(t)t.remove();
+    var resp=chatR.default,lo=m.toLowerCase();
+    for(var k in chatR){if(k!=='default'&&lo.includes(k)){resp=chatR[k];break;}}
+    cars.forEach(function(car){if(lo.includes(car.name.split(' ')[0]))resp=car.name+' — '+car.km+' ק"מ. רוצה לתאם נסיעה?'});
+    ms.innerHTML+='<div class="chat-msg" style="animation:slideIn .3s"><div class="chat-bubble">'+resp+'</div></div>';
+    ms.scrollTop=ms.scrollHeight;
+  },1200);
+}
+
+// FAQ
+function toggleFaq(el){document.querySelectorAll('.faq-item').forEach(function(i){if(i!==el)i.classList.remove('open')});el.classList.toggle('open')}
+
+// ADMIN
+function checkPin(){
+  if(document.getElementById('pinInput').value===PIN){
+    document.getElementById('pinModal').classList.remove('open');
+    document.getElementById('pinInput').value='';
+    openAdmin();
+  }else{document.getElementById('pinInput').style.borderColor='#FF6B6B';setTimeout(function(){document.getElementById('pinInput').style.borderColor=''},1000)}
+}
+function openAdmin(){document.getElementById('adminPanel').classList.add('open');renderCarList()}
+function closeAdmin(){document.getElementById('adminPanel').classList.remove('open');renderCars()}
+function renderCarList(){
+  var l=document.getElementById('carList');l.innerHTML='';
+  cars.forEach(function(car){
+    var thumb=car.img?'<img src="'+car.img+'" alt="">':'<span style="font-size:26px">'+car.emoji+'</span>';
+    l.innerHTML+='<div class="car-item"><div class="car-thumb">'+thumb+'</div><div class="car-info"><b>'+car.name+'</b><span>'+car.km+' ק"מ · '+car.tags.join(' · ')+'</span></div><button class="btn-edit" onclick="editCar(\''+car.id+'\')">ערוך</button><button class="btn-del" onclick="deleteCar(\''+car.id+'\')">מחק</button></div>';
+  });
+}
+function handleImg(e){
+  var f=e.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    document.getElementById('imgData').value=ev.target.result;
+    var p=document.getElementById('imgPreview');
+    p.innerHTML='<img src="'+ev.target.result+'" alt="">';
+  };r.readAsDataURL(f);
+}
+function saveCar(){
+  var name=document.getElementById('carName').value.trim();if(!name)return;
+  var id=document.getElementById('editId').value||Date.now().toString();
+  var car={id:id,name:name,km:document.getElementById('carKm').value,tags:document.getElementById('carTags').value.split(',').map(function(t){return t.trim()}).filter(Boolean),badgeType:document.getElementById('carBadgeType').value,emoji:document.getElementById('carEmoji').value||'🚗',img:document.getElementById('imgData').value};
+  var idx=cars.findIndex(function(c){return c.id===id});
+  if(idx>-1)cars[idx]=car;else cars.push(car);
+  saveCarsLocal();renderCarList();clearForm();
+}
+function editCar(id){
+  var car=cars.find(function(c){return c.id===id});if(!car)return;
+  document.getElementById('editId').value=car.id;
+  document.getElementById('carName').value=car.name;
+  document.getElementById('carKm').value=car.km;
+  document.getElementById('carTags').value=car.tags.join(', ');
+  document.getElementById('carBadgeType').value=car.badgeType;
+  document.getElementById('carEmoji').value=car.emoji;
+  document.getElementById('imgData').value=car.img||'';
+  var p=document.getElementById('imgPreview');
+  p.innerHTML=car.img?'<img src="'+car.img+'" alt="">':'לחץ להעלאה<br>תמונה';
+  document.getElementById('formTitle').textContent='✏️ עריכת רכב';
+  document.getElementById('cancelEdit').style.display='block';
+  document.getElementById('addForm').scrollIntoView({behavior:'smooth'});
+}
+function deleteCar(id){if(confirm('למחוק רכב זה?')){cars=cars.filter(function(c){return c.id!==id});saveCarsLocal();renderCarList()}}
+function cancelEdit(){clearForm()}
+function clearForm(){
+  ['editId','carName','carKm','carTags','imgData'].forEach(function(id){document.getElementById(id).value=''});
+  document.getElementById('carBadgeType').value='new';
+  document.getElementById('carEmoji').value='🚗';
+  document.getElementById('imgPreview').innerHTML='לחץ להעלאה<br>תמונה';
+  document.getElementById('formTitle').textContent='➕ הוספת רכב חדש';
+  document.getElementById('cancelEdit').style.display='none';
+  document.getElementById('imgFile').value='';
+}
+</script>
+</body>
+</html>
